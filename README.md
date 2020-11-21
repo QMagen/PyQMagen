@@ -11,6 +11,9 @@ by learning the hamiltonian of a XXZ heisenberg chain.
 
 ![](https://github.com/yusizhuo/QMagen/blob/master/Illustration/Illust_SC.png)
 
+```bash
+jupyter notebook Demo.ipynb
+```
 Too run the demo, make sure you have these packages properly intstalled.
 
 [1] Pytorch
