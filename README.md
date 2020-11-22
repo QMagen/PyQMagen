@@ -6,7 +6,7 @@ which is unbiased and more efficient.
 
 
 Now we have a first version demo where we show a proof-of-principle case
-by learning the hamiltonian of a XXZ heisenberg chain.
+by learning the Hamiltonian of a XXZ Heisenberg chain.
 
 ![](https://github.com/yusizhuo/QMagen/blob/master/Illustration/Illust_SC.png)
 
