@@ -1,6 +1,5 @@
 # Learning Effective Hamiltonian form thermodynamic datas
 
-![](https://github.com/yusizhuo/QMagen/blob/master/Illustration/Illust_1.png)
 
 we wish to propose a systematic approach of fitting thermodynamic data
 which is unbiased and more efficient.
