@@ -24,6 +24,9 @@ pip install torch torchvision torchaudio
 https://github.com/fmfn/BayesianOptimization
 ```bash
 pip install bayesian-optimization
+```
+or
+```
 conda install -c conda-forge bayesian-optimization
 ```
 
