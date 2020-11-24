@@ -1,4 +1,4 @@
-# Learning Effective Hamiltonian from thermodynamic datas
+# Learning Effective Hamiltonian from thermodynamic data
 
 
 we wish to propose a systematic approach of fitting thermodynamic data
