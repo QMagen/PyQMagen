@@ -1,5 +1,5 @@
 import torch
-from .eigh import EigenSolver
+# from .eigh import EigenSolver
 import math
 # from Codes.ExactDiagonalization import ExactDiag
 
