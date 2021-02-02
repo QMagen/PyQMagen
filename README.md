@@ -29,6 +29,3 @@ or
 ```
 conda install -c conda-forge bayesian-optimization
 ```
-
-We plan to release a first official version of this project in 
-late-December, 2020.
