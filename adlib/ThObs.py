@@ -20,8 +20,7 @@ class Th_obs():
 
     def get_obs(self, H, SpinOp, solver_params):
         # [ESpec, U] = EigenSolver.apply(H)
-        [ESpec, U] = torch.eig(H, eigenvectors=True)
-        ESpec = ESpec[:, 0]
+        [ESpec, U] = torch.symeig(H, eigenvectors=True)
         Sztot = sum(SpinOp.SzP).double()
         Sxtot = sum(SpinOp.SxP).double()
         Mnn = torch.diag(U.transpose(1, 0).mm(Sztot).mm(U))
