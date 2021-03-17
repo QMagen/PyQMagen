@@ -10,22 +10,15 @@ by learning the Hamiltonian of a XXZ Heisenberg chain.
 
 ![](https://github.com/yusizhuo/QMagen/blob/master/Illustration/Illust_SC.png)
 
-```bash
-jupyter notebook Demo.ipynb
-```
-Too run the demo, make sure you have these packages properly intstalled.
+The QMagen package can be installed locally via following commands:
 
-[1] Pytorch
-https://pytorch.org/get-started/locally/
 ```bash
-pip install torch torchvision torchaudio
+git clone https://github.com/QMagen/HamiltonianLearning.git
+cd HamiltonianLearning
+pip install -e .
 ```
-[2] Bayesian Optimization
-https://github.com/fmfn/BayesianOptimization
+
+We also provide a DEMO in jupyter notebook
 ```bash
-pip install bayesian-optimization
-```
-or
-```
-conda install -c conda-forge bayesian-optimization
+jupyter-notebook DEMO.ipynb
 ```
