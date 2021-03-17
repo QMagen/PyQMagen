@@ -1,6 +1,6 @@
 import torch
-from adlib.spin_operators import SpinOp
-from adlib.thermal_observables import Th_obs
+from magen.adlib import SpinOp
+from magen.adlib import Th_obs
 
 class solver_ED(torch.nn.Module):
 
