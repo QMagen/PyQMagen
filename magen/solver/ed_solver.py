@@ -1,5 +1,5 @@
-from adlib.thermal_observables import ThObs
-from adlib.spin_operators import SpinOperators
+from magen.adlib import ThObs
+from magen.adlib import SpinOperators
 import warnings
 import torch
 

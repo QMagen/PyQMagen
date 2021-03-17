@@ -1,6 +1,6 @@
 from bayes_opt import BayesianOptimization
 from bayes_opt import UtilityFunction
-from optimizer.optimizer import Optimizer
+from .optimizer import Optimizer
 import copy
 import torch
 import numpy as np

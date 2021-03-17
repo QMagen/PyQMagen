@@ -1,5 +1,5 @@
 import numpy as np
-from SubFunc import calcul_loss
+from magen.SubFunc import calcul_loss
 
 class Optimizer:
 

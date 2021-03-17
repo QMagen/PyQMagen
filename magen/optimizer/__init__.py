@@ -1,8 +1,5 @@
 from .bayesian_optimizer import BayesianOptimizer
-from SubFunc import calcul_loss
 from .optimizer import Optimizer
-import numpy as np
-
 
 # class Optimizer:
 #
