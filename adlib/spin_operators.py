@@ -2,7 +2,7 @@ import torch
 from .kronecker_product import kronecker_product
 import math
 
-class SpinOp:
+class SpinOperators:
     def __init__(self, **argin):
         d = argin['d']
         Sz = torch.diag(torch.tensor([-(d - 1) / 2 + n - 1 for n in range(1, d + 1)], requires_grad=False))
@@ -24,19 +24,19 @@ class SpinOp:
         SyP = []
         SzP = []
 
-        def DirectProd(S, i, L, Id):
+        def DirectProd(S, i, l, Id):
             SP = S
-            for si in range(L):
+            for si in range(l):
                 if si < i:
                     SP = kronecker_product(SP, Id)
                 if si > i:
                     SP = kronecker_product(Id, SP)
             return SP
 
-        for i in range(argin['L']):
-            SxP.append(DirectProd(Sx, i, argin['L'], Id))
-            SyP.append(DirectProd(Sy, i, argin['L'], Id))
-            SzP.append(DirectProd(Sz, i, argin['L'], Id))
+        for i in range(argin['l']):
+            SxP.append(DirectProd(Sx, i, argin['l'], Id))
+            SyP.append(DirectProd(Sy, i, argin['l'], Id))
+            SzP.append(DirectProd(Sz, i, argin['l'], Id))
         self.Sx = Sx
         self.Sy = Sy
         self.Sz = Sz

@@ -1,6 +1,6 @@
-def get_T_cut(target_obs, obs_real, params, shift=0):
+def get_T_cut(target_obs, obs_real, shift=0):
     T_cut = dict()
-    N_beta = len(params.system_params['T'])
+    N_beta = len(obs_real.T)
     for obs_name in target_obs:
         maxi = getattr(obs_real, obs_name).argmax()
         if maxi == len(getattr(obs_real, obs_name)) - 1 or maxi == 0:
