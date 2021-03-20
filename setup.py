@@ -14,7 +14,7 @@ setuptools.setup(
     url='',
     package_dir={'': 'magen'},
     packages=setuptools.find_packages(where='magen'),
-    install_requires=['torch', 'bayesian-optimization'],
+    install_requires=['torch', 'bayesian-optimization', 'sklearn'],
     python_requires='>=3.6, <4',
     classifiers=[
         'Programming Language :: Python :: 3',

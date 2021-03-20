@@ -1,5 +1,7 @@
 import numpy as np
-from magen.SubFunc import calcul_loss
+import json
+from magen.aux_func import calcul_loss
+from magen.aux_func import get_cutoff_t
 
 class Optimizer:
 
@@ -16,12 +18,12 @@ class Optimizer:
         else:
             self.target_obs = target_obs
 
-        self.T_cut = T_cut
+
 
         if T_cut is None:
             self.T_cut = dict(zip(self.target_obs, [len(exp_thermal_data.T) for _ in range(len(self.target_obs))]))
         else:
-            self.T_cut = T_cut
+            self.T_cut = get_cutoff_t(self.target_obs, self.exp_thermal_data, shift=T_cut)
 
         self.parameter_record = []
         self.loss_record = np.zeros(n_exp_total)
@@ -37,3 +39,17 @@ class Optimizer:
                            T_cut=self.T_cut)
 
         return loss
+
+class OptimizerResult:
+
+    def __init__(self):
+        self.parameter_record = None
+        self.parameter_space = None
+        self.loss_record = None
+        self.best_parameter = None
+        self.best_loss = None
+        pass
+
+    def save(self, path):
+        fp = open(path, 'wt')
+        json.dump(self, fp)

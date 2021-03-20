@@ -1,4 +1,4 @@
-def get_T_cut(target_obs, obs_real, shift=0):
+def get_cutoff_t(target_obs, obs_real, shift=0):
     T_cut = dict()
     N_beta = len(obs_real.T)
     for obs_name in target_obs:

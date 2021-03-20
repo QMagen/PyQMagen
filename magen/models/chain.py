@@ -14,7 +14,7 @@ class UniformSpinChain(SpinChain):
         J = torch.tensor(J)
         interactions = []
         for i in range(self.l - 1):
-            interactions.append(['x', 'x', i, i+1, J])
+            interactions.append(['x', 'x', i, i + 1, J])
             interactions.append(['y', 'y', i, i + 1, J])
             interactions.append(['z', 'z', i, i + 1, J])
 
@@ -31,7 +31,7 @@ class XXZSpinChain(SpinChain):
         Jz = torch.tensor(Jz)
         interactions = []
         for i in range(self.l - 1):
-            interactions.append(['x', 'x', i, i+1, Jxy])
+            interactions.append(['x', 'x', i, i + 1, Jxy])
             interactions.append(['y', 'y', i, i + 1, Jxy])
             interactions.append(['z', 'z', i, i + 1, Jz])
 

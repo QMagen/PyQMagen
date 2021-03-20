@@ -1,2 +1,3 @@
 torch
 bayesian-optimization
+sklearn
