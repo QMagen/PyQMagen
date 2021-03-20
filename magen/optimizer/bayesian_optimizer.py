@@ -19,6 +19,9 @@ class BayesianOptimizer(Optimizer):
         self.record_BO = record_BO
         self.acquisition_func = acquisition_func
 
+        if custom_loss_func:
+            self.eval_loss = custom_loss_func
+
     def minimize(self, log_accelerate=True):
 
         utility = UtilityFunction(kind=self.acquisition_func, kappa=2.5, xi=0.0)

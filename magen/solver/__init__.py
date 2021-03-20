@@ -1,1 +1,1 @@
-from .ed_solver import ED_solver
+from .ed_solver import EDSolver

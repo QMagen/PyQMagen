@@ -63,11 +63,39 @@ def show_landscape(result, plan_keys, itr=-1):
     assert isinstance(result, BayesianOptimizerResult)
     bounds = [result.parameter_space[plan_keys[0]], result.parameter_space[plan_keys[1]]]
 
+    def get_param(xi, yi, fix_param=None):
+        param_names = list(result.parameter_space.keys())
+        p_point = np.zeros(len(result.parameter_space))
+        if len(plan_keys) == len(result.parameter_space):
+            return np.array([xi, yi])
+        elif fix_param:
+            i = 0
+            for param_name in param_names:
+                if param_name == plan_keys[0]:
+                    p_point[i] = xi
+                elif param_name == plan_keys[1]:
+                    p_point[i] = yi
+                else:
+                    p_point[i] = fix_param['param_name']
+                i += 1
+        else:
+            i = 0
+            for param_name in param_names:
+                if param_name == plan_keys[0]:
+                    p_point[i] = xi
+                elif param_name == plan_keys[1]:
+                    p_point[i] = yi
+                else:
+                    p_point[i] = result.BO_record[itr].max['params'][param_name]
+                i += 1
+        return p_point
+
     xs = np.linspace(bounds[0][0], bounds[0][1], 100)
     ys = np.linspace(bounds[1][0], bounds[1][1], 100)
 
     predictor = result.BO_record[itr]._gp
-    predict_values = np.vstack([predictor.predict(np.array([[xi, yi] for xi in xs]))
+
+    predict_values = np.vstack([predictor.predict(np.array([get_param(xi, yi) for xi in xs]))
                                 for yi in ys])
 
     fig, ax = plt.subplots(figsize=[5, 5])
