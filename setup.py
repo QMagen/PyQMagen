@@ -12,8 +12,8 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='',
-    package_dir={'': 'magen'},
-    packages=setuptools.find_packages(where='magen'),
+    # package_dir={'': ''},
+    packages=setuptools.find_packages(where=''),
     install_requires=['torch', 'bayesian-optimization', 'sklearn', 'matplotlib'],
     python_requires='>=3.6, <4',
     classifiers=[

@@ -8,13 +8,40 @@ import warnings
 import numpy as np
 
 
-def show_landscape_gp(result, plan_keys):
+def show_landscape_gp(result, plan_keys, itr=-1, fix_param=None, log_scale=False):
 
     assert isinstance(result, OptimizerResult)
     bounds = [result.parameter_space[plan_keys[0]], result.parameter_space[plan_keys[1]]]
 
     xs = np.linspace(bounds[0][0], bounds[0][1], 100)
     ys = np.linspace(bounds[1][0], bounds[1][1], 100)
+
+    def get_param(xi, yi):
+        param_names = list(result.parameter_space.keys())
+        p_point = np.zeros(len(result.parameter_space))
+        if len(plan_keys) == len(result.parameter_space):
+            return np.array([xi, yi])
+        elif fix_param:
+            i = 0
+            for param_name in param_names:
+                if param_name == plan_keys[0]:
+                    p_point[i] = xi
+                elif param_name == plan_keys[1]:
+                    p_point[i] = yi
+                else:
+                    p_point[i] = fix_param[param_name]
+                i += 1
+        else:
+            i = 0
+            for param_name in param_names:
+                if param_name == plan_keys[0]:
+                    p_point[i] = xi
+                elif param_name == plan_keys[1]:
+                    p_point[i] = yi
+                else:
+                    p_point[i] = result.BO_record[itr].max['params'][param_name]
+                i += 1
+        return p_point
 
     X = np.vstack([np.array([result.parameter_record[i][plan_keys[0]],
                              result.parameter_record[i][plan_keys[1]]]) for i in range(len(result.loss_record))])
@@ -25,15 +52,14 @@ def show_landscape_gp(result, plan_keys):
         kernel=Matern(nu=2.5, length_scale_bounds=(1e-05, 1000)),
         alpha=1e-6,
         optimizer='fmin_l_bfgs_b',
-        # optimizer=None,
         normalize_y=True,
-        n_restarts_optimizer=100,
+        n_restarts_optimizer=500,
     )
 
     # GP.fit(X, np.power(10, -Y))
     GP.fit(X, Y)
 
-    predict_values = np.vstack([GP.predict(np.array([[xi, yi] for xi in xs]))
+    predict_values = np.vstack([GP.predict(np.array([get_param(xi, yi) for xi in xs]))
                                 for yi in ys])
 
     fig, ax = plt.subplots(figsize=[5, 5])
@@ -41,16 +67,15 @@ def show_landscape_gp(result, plan_keys):
     predict_values[np.where(predict_values < 0)] = 1e-3
     # predict_values = -predict_values
 
-    ctf = ax.contourf(xs, ys, predict_values, cmap=plt.cm.gnuplot_r,
-                      norm=colors.LogNorm(vmin=predict_values.min(), vmax=predict_values.max()),
-                      levels=np.power(10, np.linspace(np.log10(predict_values.min()),
-                                                      np.log10(predict_values.max()), 100)))
+    if log_scale:
+        ctf = ax.contourf(xs, ys, predict_values, cmap=plt.cm.gnuplot_r,
+                          norm=colors.LogNorm(vmin=predict_values.min(), vmax=predict_values.max()),
+                          levels=np.power(10, np.linspace(np.log10(predict_values.min()),
+                                                          np.log10(predict_values.max()), 100)))
+    else:
+        ctf = ax.contourf(xs, ys, predict_values, cmap=plt.cm.gnuplot_r,
+                          levels=100)
 
-    # ctf = ax.contourf(xs, ys, predict_values, cmap=plt.cm.gnuplot,
-    #                   levels=100)
-
-    # ctf = ax.contourf(xs, ys, np.log10(predict_values), cmap=plt.cm.gnuplot_r,
-    #                   levels=100)
     fig.colorbar(ctf)
 
     ax.set_xlabel(plan_keys[0])
