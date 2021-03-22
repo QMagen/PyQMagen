@@ -18,8 +18,6 @@ class Optimizer:
         else:
             self.target_obs = target_obs
 
-
-
         if T_cut is None:
             self.T_cut = dict(zip(self.target_obs, [len(exp_thermal_data.T) for _ in range(len(self.target_obs))]))
         else:
@@ -39,6 +37,7 @@ class Optimizer:
                            T_cut=self.T_cut)
 
         return loss
+
 
 class OptimizerResult:
 

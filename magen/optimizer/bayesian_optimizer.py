@@ -6,11 +6,28 @@ import torch
 import numpy as np
 import dill
 
+
 class BayesianOptimizer(Optimizer):
 
-    def __init__(self, acquisition_func='ei', record_BO=False,
-                 custom_loss_func=None, num_warm_up=10, **general_arg):
-        super(BayesianOptimizer, self).__init__(**general_arg)
+    def __init__(self, exp_thermal_data,
+                 n_exp_total,
+                 parameter_space,
+                 solver,
+                 model,
+                 acquisition_func='ei', record_BO=False,
+                 custom_loss_func=None, num_warm_up=10,
+                 target_obs=None, T_cut=None,
+                 **args):
+
+        super(BayesianOptimizer, self).__init__(exp_thermal_data=exp_thermal_data,
+                                                n_exp_total=n_exp_total,
+                                                parameter_space=parameter_space,
+                                                solver=solver,
+                                                model=model,
+                                                T_cut=T_cut,
+                                                target_obs=target_obs
+                                                )
+
         self._optimizer = BayesianOptimization(f=self.eval_loss,
                                                pbounds=self.parameter_space,
                                                verbose=1,

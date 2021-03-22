@@ -14,7 +14,7 @@ class EDSolver:
         self.size = size
         self.cal_chi_para = cal_chi_para
 
-    def get_hamiltonian_matrix(self, interactions, mag_field=None):
+    def get_hamiltonian_matrix(self, interactions, mag_field):
         SpinOps = SpinOperators(d=2, l=self.size)
         hamiltonian_matrix = torch.zeros_like(SpinOps.SxP[0],
                                               requires_grad=False,
@@ -59,7 +59,7 @@ class EDSolver:
 
         return hamiltonian_matrix, SpinOps
 
-    def _solve_from_iteraction(self, interactions, T, mag_field=None):
+    def _solve_from_interaction(self, interactions, T, mag_field=None):
         h_matrix, SpinOps = self.get_hamiltonian_matrix(interactions=interactions, mag_field=mag_field)
         sim_therm_data = ThObs(T=T)
 
@@ -95,18 +95,19 @@ class EDSolver:
 
     def forward(self, interactions, T, mag_field=None, with_chi_para=False):
 
-        sim_therm_data = self._solve_from_iteraction(interactions, T, mag_field)
+        sim_therm_data = self._solve_from_interaction(interactions, T, mag_field)
         mag_field_aux = {}
 
         if with_chi_para or self.cal_chi_para:
             if mag_field:
                 mag_field_aux['hx'] = mag_field['hx'] + 0.05
-                sim_therm_data_aux = self._solve_from_iteraction(interactions, T, mag_field_aux)
+                mag_field_aux['hz'] = mag_field['hz'] + 0.05
+                sim_therm_data_aux = self._solve_from_interaction(interactions, T, mag_field_aux)
                 M_aux = sim_therm_data_aux.M
                 Chi_num = (M_aux - sim_therm_data.M)/0.05
             else:
                 mag_field_aux = {'hx': 0.05, 'hz': 0.0}
-                sim_therm_data_aux = self._solve_from_iteraction(interactions, T, mag_field_aux)
+                sim_therm_data_aux = self._solve_from_interaction(interactions, T, mag_field_aux)
                 M_aux = sim_therm_data_aux.M_paral
                 Chi_num = (M_aux - sim_therm_data.M_paral) / 0.05
             sim_therm_data.Chixy = Chi_num

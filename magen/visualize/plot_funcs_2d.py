@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib import colors
 from sklearn.gaussian_process.kernels import Matern
 from sklearn.gaussian_process import GaussianProcessRegressor
-
+import warnings
 import numpy as np
 
 
@@ -58,12 +58,17 @@ def show_landscape_gp(result, plan_keys):
 
     return fig, ax
 
-def show_landscape(result, plan_keys, itr=-1):
 
+def show_landscape(result, plan_keys, itr=-1, fix_param=None, log_scale=False):
+
+    if log_scale:
+        warn_message = 'Using log scale might cause numerical errors when the parameter space ' \
+                       'is not fully explored (Gaussian process might predict negative values'
+        warnings.warn(warn_message)
     assert isinstance(result, BayesianOptimizerResult)
     bounds = [result.parameter_space[plan_keys[0]], result.parameter_space[plan_keys[1]]]
 
-    def get_param(xi, yi, fix_param=None):
+    def get_param(xi, yi):
         param_names = list(result.parameter_space.keys())
         p_point = np.zeros(len(result.parameter_space))
         if len(plan_keys) == len(result.parameter_space):
@@ -76,7 +81,7 @@ def show_landscape(result, plan_keys, itr=-1):
                 elif param_name == plan_keys[1]:
                     p_point[i] = yi
                 else:
-                    p_point[i] = fix_param['param_name']
+                    p_point[i] = fix_param[param_name]
                 i += 1
         else:
             i = 0
@@ -103,10 +108,15 @@ def show_landscape(result, plan_keys, itr=-1):
     # ctf = ax.contourf(xs, ys, predict_values, cmap=plt.cm.gnuplot,
     #                   levels=100)
     predict_values = -predict_values
-    ctf = ax.contourf(xs, ys, predict_values, cmap=plt.cm.gnuplot_r,
-                      norm=colors.LogNorm(vmin=predict_values.min(), vmax=predict_values.max()),
-                      levels=np.power(10, np.linspace(np.log10(predict_values.min()),
-                                                      np.log10(predict_values.max()), 100)))
+
+    if log_scale:
+        ctf = ax.contourf(xs, ys, predict_values, cmap=plt.cm.gnuplot_r,
+                          norm=colors.LogNorm(vmin=predict_values.min(), vmax=predict_values.max()),
+                          levels=np.power(10, np.linspace(np.log10(predict_values.min()),
+                                                          np.log10(predict_values.max()), 100)))
+    else:
+        ctf = ax.contourf(xs, ys, predict_values, cmap=plt.cm.gnuplot_r,
+                          levels=100)
 
     fig.colorbar(ctf)
 
