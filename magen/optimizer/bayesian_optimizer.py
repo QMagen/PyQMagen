@@ -44,6 +44,13 @@ class BayesianOptimizer(Optimizer):
         utility = UtilityFunction(kind=self.acquisition_func, kappa=2.5, xi=0.0)
         result = BayesianOptimizerResult()
 
+        aux = '|{{:=^{}s}}|'.format(len(self.parameter_space) * 11 + 21)
+        print(aux.format('Optimization Start'))
+        output_line = '|{:^10s}|{:^10s}|'.format('Itr', 'Loss')
+        for i in range(len(self.parameter_space)):
+            output_line += '{:^10s}|'.format(list(self.parameter_space.keys())[i])
+        print(output_line)
+
         if self.record_BO:
             BO_record = []
 
@@ -86,28 +93,48 @@ class BayesianOptimizer(Optimizer):
                     BO_record.append(copy.deepcopy(self._optimizer))
 
                 self.parameter_record.append(copy.deepcopy(next_point))
-                self.loss_record[i] = loss.detach().numpy()
 
-            print("iteration {}: Loss = {}, Parameter is {}".format(i + 1, loss, next_point))
+            if log_accelerate:
+                loss_to_save = np.power(10, -loss.detach().numpy())
+            else:
+                loss_to_save = -loss.detach().numpy()
+
+            self.loss_record[i] = loss_to_save
+
+            output_line = '|{:^10d}|{:^10.2e}|'.format(i, loss_to_save)
+            for j in range(len(self.parameter_space)):
+                output_line += '{:^10.5f}|'.format(next_point[list(self.parameter_space.keys())[j]])
+            print(output_line)
 
         result.parameter_record = self.parameter_record
         result.parameter_space = self.parameter_space
+        result.BO_record = BO_record
+        # if log_accelerate:
+        #     result.loss_record = np.power(10, -self.loss_record)
+        # else:
+        #     result.loss_record = -self.loss_record
 
-        if log_accelerate:
-            result.loss_record = np.power(10, -self.loss_record)
-        else:
-            result.loss_record = -self.loss_record
-
-        result.best_parameter = self.parameter_record[self.loss_record.argmax()]
+        result.loss_record = self.loss_record
+        result.best_parameter = self.parameter_record[self.loss_record.argmin()]
         result.best_loss = self.loss_record.min()
 
-        if self.record_BO:
-            result.BO_record = BO_record
 
-        print('===================FINISHED=========================')
-        print("Best parameter found at iteration {}, with Loss = {}".format(result.loss_record.argmin() + 1,
-                                                                            result.best_loss))
-        print("{}".format(result.best_parameter))
+
+        print(aux.format('Optimization Finised'))
+
+        output_line = '|{:^10s}|{:^10s}|'.format('Best', 'Loss')
+        for i in range(len(self.parameter_space)):
+            output_line += '{:^10s}|'.format(list(self.parameter_space.keys())[i])
+        print(output_line)
+
+        output_line = '|{:^10d}|{:^10.2e}|'.format(result.loss_record.argmin() + 1, result.best_loss)
+        for j in range(len(self.parameter_space)):
+            output_line += '{:^10.5f}|'.format(result.best_parameter[list(self.parameter_space.keys())[j]])
+        print(output_line)
+
+        # print("Best parameter found at iteration {}, with Loss = {}".format(result.loss_record.argmin() + 1,
+        #                                                                     result.best_loss))
+        # print("{}".format(result.best_parameter))
 
         return result
 

@@ -43,8 +43,8 @@ def show_landscape_gp(result, plan_keys, itr=-1, fix_param=None, log_scale=False
                 i += 1
         return p_point
 
-    X = np.vstack([np.array([result.parameter_record[i][plan_keys[0]],
-                             result.parameter_record[i][plan_keys[1]]]) for i in range(len(result.loss_record))])
+    X = np.vstack([np.array([result.parameter_record[i][list(result.parameter_space.keys())[j]]
+                             for j in range(len(result.parameter_space))]) for i in range(len(result.loss_record))])
 
     Y = result.loss_record
 
@@ -53,7 +53,7 @@ def show_landscape_gp(result, plan_keys, itr=-1, fix_param=None, log_scale=False
         alpha=1e-6,
         optimizer='fmin_l_bfgs_b',
         normalize_y=True,
-        n_restarts_optimizer=500,
+        n_restarts_optimizer=200,
     )
 
     # GP.fit(X, np.power(10, -Y))
