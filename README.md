@@ -10,25 +10,9 @@ that can analyze high temperature thermal data.
 
 ## Installation
 
-If the user is new to Python, we strongly recommended to use 
-*anaconda* or *miniconda* to configure your environment.
-They can be found
-[here](https://www.anaconda.com/).
-
-After installing conda, you can create a separate environment in
-the terminal via 
-
+Firstly, please `cd` to your customized path
 ```shell script
-conda env -n qmagen
-```
-then activate the new environment by
-```shell script
-conda activate qmagen
-```
-Also it is recommended to install jupyter notebook
-in order to run the tutorial
-```shell script
-conda install jupyter notebook
+cd user_customized_path
 ```
 
 The QMagen package can then be installed 
@@ -37,7 +21,31 @@ locally via following commands:
 ```shell script
 git clone https://github.com/QMagen/HamiltonianLearning.git
 cd HamiltonianLearning
+```
+### Dependencies
+
+If you are new to Python, we strongly recommended to use 
+*anaconda* or *miniconda* to configure your environment.
+They can be found
+[here](https://www.anaconda.com/).
+
+After installing conda, you can create and activate a separate 
+vitual environment via 
+
+```shell script
+conda create -n qmagen
+conda activate qmagen
+```
+
+Use the following command to install dependencies
+```shell script
 pip install -e .
+```
+
+Also it is recommended to install jupyter notebook
+in order to run the tutorial
+```shell script
+conda install jupyter notebook
 ```
 
 After installation, the PyQMagen package can be imported in 
