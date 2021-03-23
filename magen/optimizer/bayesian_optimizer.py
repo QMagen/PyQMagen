@@ -43,13 +43,10 @@ class BayesianOptimizer(Optimizer):
         output_line = '|{:^6s}|{:^8s}|'.format('Itr', 'Loss')
         for i in range(len(self.parameter_space)):
             output_line += '{:^10s}|'.format(list(self.parameter_space.keys())[i])
-        output_line += '|{:^6s}|{:^8s}|'.format('BestIt','BestLoss')
-        for i in range(len(self.parameter_space)):
-            output_line += 'Best{:^6s}|'.format(list(self.parameter_space.keys())[i])
 
-        print('-'*100)
+        print('-'*50)
         print(output_line)
-        print('-'*100)
+        print('-'*50)
 
 
     def minimize(self, log_accelerate=True):
@@ -57,9 +54,9 @@ class BayesianOptimizer(Optimizer):
         utility = UtilityFunction(kind=self.acquisition_func, kappa=2.5, xi=0.0)
         result = BayesianOptimizerResult()
 
-        aux = '|{{:=^{}s}}|'.format(len(self.parameter_space) * 11 + 65)
+        aux = '|{{:=^{}s}}|'.format(len(self.parameter_space) * 11 + 15)
         print(aux.format('Optimization Start'))
-        
+
         if self.record_BO: BO_record = []
 
         for i in range(self.n_exp_total):
@@ -116,11 +113,10 @@ class BayesianOptimizer(Optimizer):
             for j in range(len(self.parameter_space)):
                 paraName = list(self.parameter_space.keys())[j]
                 output_line += '{:^10.5f}|'.format(next_point[paraName])
-            output_line += '|{:^6d}|{:^8.1e}|'.format(idx_min,self.loss_record[idx_min])
-            for j in range(len(self.parameter_space)):
-                paraName = list(self.parameter_space.keys())[j]
-                output_line += '{:^10.5f}|'.format(self.parameter_record[idx_min][paraName])
-            print(output_line)
+            if idx_min==i and i>0: 
+                print('\033[31m%s\033[0m'%(output_line+'*'))
+            else:
+                print(output_line)
 
         result.parameter_record = self.parameter_record
         result.parameter_space = self.parameter_space
