@@ -62,3 +62,19 @@ we provide a tutorial in jupyter notebook
 ```shell script
 jupyter-notebook tutorial/introduction.ipynb
 ```
+
+---
+
+### Future updates
+
+In the short future, following features will be updated:
+
+- Large-scale 1D solver - LTRG
+- Animation for the optimization process
+- More templates for spin-models
+
+Also we are working hard to bring even more 
+exciting features in PyQMagen, including
+
+- Large-scale 2D solver - XTRG
+- Neural network based thermal analysis
