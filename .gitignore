@@ -1,3 +1,7 @@
 /.ipynb_checkpoints/Demo-checkpoint.ipynb
 
 magen/hamiltonian_learning.egg-info/
+
+*.pyc
+
+tutorial/.ipynb_checkpoints

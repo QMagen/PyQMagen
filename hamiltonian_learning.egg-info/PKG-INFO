@@ -6,30 +6,63 @@ Home-page: UNKNOWN
 Author: Sizhuo YU.
 Author-email: yusizhuo@buaa.edu.cn
 License: UNKNOWN
-Description: # Learning Effective Hamiltonian from thermodynamic data
+Description: # PyQMagen - a Python package for thermal data analysis of quantum magnets
         
+        The Python version of QMagen provides a highly 
+        customizable package for the analysis of thermal data 
+        of quantum magnets. 
+        Featuring Bayesian optimizer for the fitting loss, 
+        and combined with an ED solver,
+        the PyQMagen is a computational light package 
+        that can analyze high temperature thermal data.
         
-        we wish to propose a systematic approach of fitting thermodynamic data
-        which is unbiased and more efficient.
+        ## Installation
         
+        If the user is new to Python, we strongly recommended to use 
+        *anaconda* or *miniconda* to configure your environment.
+        They can be found
+        [here](https://www.anaconda.com/).
         
-        Now we have a first version demo where we show a proof-of-principle case
-        by learning the Hamiltonian of a XXZ Heisenberg chain.
+        After installing conda, you can create a separate environment in
+        the terminal via 
         
-        ![](https://github.com/yusizhuo/QMagen/blob/master/Illustration/Illust_SC.png)
+        ```shell script
+        conda env -n qmagen
+        ```
+        then activate the new environment by
+        ```shell script
+        conda activate qmagen
+        ```
+        Also it is recommended to install jupyter notebook
+        in order to run the tutorial
+        ```shell script
+        conda install jupyter notebook
+        ```
         
-        The QMagen package can be installed locally via following commands:
+        The QMagen package can then be installed 
+        locally via following commands:
         
-        ```bash
+        ```shell script
         git clone https://github.com/QMagen/HamiltonianLearning.git
         cd HamiltonianLearning
         pip install -e .
         ```
         
-        We also provide a DEMO in jupyter notebook
-        ```bash
-        jupyter-notebook DEMO.ipynb
+        After installation, the PyQMagen package can be imported in 
+        Python environment via
+        
+        ```python
+        import magen
         ```
+        ---
+        ### Tutorial
+        For more detailed usage guide,
+        we provide a tutorial in jupyter notebook
+        
+        ```shell script
+        jupyter-notebook tutorial/introduction.ipynb
+        ```
+        
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: GNU General Public License v3.0
