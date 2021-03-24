@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='hamiltonian_learning',
+    name='qmagen',
     version='1.0.0',
     author='Sizhuo YU.',
     author_email='yusizhuo@buaa.edu.cn',
@@ -14,7 +14,7 @@ setuptools.setup(
     url='',
     # package_dir={'': ''},
     packages=setuptools.find_packages(where=''),
-    install_requires=['torch', 'bayesian-optimization', 'sklearn', 'matplotlib'],
+    install_requires=['torch', 'bayesian-optimization', 'sklearn', 'matplotlib', 'dill'],
     python_requires='>=3.6, <4',
     classifiers=[
         'Programming Language :: Python :: 3',
