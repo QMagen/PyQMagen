@@ -1,7 +1,0 @@
-README.md
-setup.py
-hamiltonian_learning.egg-info/PKG-INFO
-hamiltonian_learning.egg-info/SOURCES.txt
-hamiltonian_learning.egg-info/dependency_links.txt
-hamiltonian_learning.egg-info/requires.txt
-hamiltonian_learning.egg-info/top_level.txt
