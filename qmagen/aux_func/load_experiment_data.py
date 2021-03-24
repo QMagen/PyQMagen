@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from magen.adlib import ThObs
+from qmagen.adlib import ThObs
 
 def load_experiment_data(experimental_files):
     T = np.loadtxt(experimental_files['T'], delimiter=',')

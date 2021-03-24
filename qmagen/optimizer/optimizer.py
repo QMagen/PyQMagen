@@ -1,7 +1,7 @@
 import numpy as np
 import json
-from magen.aux_func import calcul_loss
-from magen.aux_func import get_cutoff_t
+from qmagen.aux_func import calcul_loss
+from qmagen.aux_func import get_cutoff_t
 
 class Optimizer:
 

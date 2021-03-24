@@ -1,5 +1,5 @@
-from magen.optimizer.optimizer import OptimizerResult
-from magen.optimizer.bayesian_optimizer import BayesianOptimizerResult
+from qmagen.optimizer.optimizer import OptimizerResult
+from qmagen.optimizer.bayesian_optimizer import BayesianOptimizerResult
 import matplotlib.pyplot as plt
 from matplotlib import colors
 from sklearn.gaussian_process.kernels import Matern
@@ -9,6 +9,20 @@ import numpy as np
 
 
 def show_landscape_gp(result, plan_keys, itr=-1, fix_param=None, log_scale=False):
+
+    """
+    :param result: a OptimizerResult object
+    :param plan_keys: list,
+        should contain two names of parameters, e.g. ['Jz', 'Jx']
+    :param itr: int, default -1,
+        the landscape at which iteration to plot
+    :param fix_param: dict or None, default: None
+        specify the parameter value of parameter not in plan_keys, e.g. {'Jy': 1}
+        if None, it will be automatically set to optimal parameter values
+    :param log_scale: bool, default: False,
+        if True, the colorbar will be in logarithmic scale
+    :return: None
+    """
 
     assert isinstance(result, OptimizerResult)
     bounds = [result.parameter_space[plan_keys[0]], result.parameter_space[plan_keys[1]]]
@@ -85,6 +99,20 @@ def show_landscape_gp(result, plan_keys, itr=-1, fix_param=None, log_scale=False
 
 
 def show_landscape(result, plan_keys, itr=-1, fix_param=None, log_scale=False):
+
+    """
+    :param result: a OptimizerResult object
+    :param plan_keys: list,
+        should contain two names of parameters, e.g. ['Jz', 'Jx']
+    :param itr: int, default -1,
+        the landscape at which iteration to plot
+    :param fix_param: dict or None, default: None
+        specify the parameter value of parameter not in plan_keys, e.g. {'Jy': 1}
+        if None, it will be automatically set to optimal parameter values
+    :param log_scale: bool, default: False,
+        if True, the colorbar will be in logarithmic scale
+    :return: None
+    """
 
     if log_scale:
         warn_message = 'Using log scale might cause numerical errors when the parameter space ' \

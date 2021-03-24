@@ -1,5 +1,5 @@
-from magen.adlib import ThObs
-from magen.adlib import SpinOperators
+from qmagen.adlib import ThObs
+from qmagen.adlib import SpinOperators
 import warnings
 import torch
 

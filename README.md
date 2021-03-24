@@ -19,8 +19,8 @@ The QMagen package can then be installed
 locally via following commands:
 
 ```shell script
-git clone https://github.com/QMagen/HamiltonianLearning.git
-cd HamiltonianLearning
+git clone https://github.com/QMagen/PyQMagen.git
+cd PyQMagen
 ```
 ### Dependencies
 
@@ -30,36 +30,65 @@ They can be found
 [here](https://www.anaconda.com/).
 
 After installing conda, you can create and activate a separate 
-vitual environment via 
+virtual environment via 
 
 ```shell script
 conda create -n qmagen
-conda activate qmagen
 ```
 
-Use the following command to install dependencies
+Then you can install the PyQMagen package and its dependencies
+into the ```qmagen``` environment with 
 ```shell script
+conda activate qmagen
 pip install -e .
 ```
 
-Also it is recommended to install jupyter notebook
-in order to run the tutorial
-```shell script
-conda install jupyter notebook
-```
-
+> if you don't have pip installed by default, run  
+>```conda install pip``` or 
+>```conda install python``` 
+> should fix the issue
+---
+### Demo
 After installation, the PyQMagen package can be imported in 
 Python environment via
 
 ```python
-import magen
+import qmagen
 ```
+
+for example, let's see how to calculate the simulated
+thermal data of a uniform Heisenberg spin-chain of 8
+spins
+
+```python
+import numpy as np
+from qmagen import solver
+from qmagen.models import chain
+
+# create a spin-chain model with 8 spins
+mymodel = chain.UniformSpinChain(l=8)
+
+# get the interactions with coupling strength J=1
+interactions = mymodel.generate_interactions(J=1)
+
+# create a ED solver
+mysolver = solver.EDSolver(size=mymodel.l) 
+
+# calculate the thermal data with ED solver with generated interactions
+thermal_data = mysolver.forward(interactions, T=np.linspace(0.1, 10, 100))
+```
+
+
 ---
 ### Tutorial
 For more detailed usage guide,
 we provide a tutorial in jupyter notebook
 
+You can run the tutorial by
 ```shell script
+# if you don't have jupyter installed
+conda install jupyter notebook
+
 jupyter-notebook tutorial/introduction.ipynb
 ```
 

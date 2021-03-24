@@ -18,6 +18,33 @@ class BayesianOptimizer(Optimizer):
                  custom_loss_func=None, num_warm_up=10,
                  target_obs=None, T_cut=None,
                  **args):
+        """
+        :param exp_thermal_data: a ThObs object
+            experimental data.
+        :param n_exp_total: itr
+            number of total iterations.
+        :param parameter_space: dict
+            defining the parameter name and its range,
+            e.g. {'J':(-10, 10)}.
+        :param solver: a solver object with a forward method.
+        :param model: a model object
+            e.g. models.SpinChain()
+        :param acquisition_func: str, default: 'ei'
+            Can be set to 'pi' or 'ucb' for different acquisition functions.
+        :param record_BO: bool, default: False
+            Controls whether the BayesianOptimizer will be saved at each .iteration
+        :param custom_loss_func: function, default: None
+            Customized loss function, if None, built-in eval_loss()
+            function will be used for loss evaluation, which calculates the squared sum of relative errors/
+        :param num_warm_up: int, default: 10
+            number of random initialization points
+        :param target_obs: list, default: None
+            name of thermal observables to fit, e.g. ['C', 'Chiz']
+            if None, set to ['C'] by default
+        :param T_cut: int, default: None
+        :param args: other parameters
+        """
+
 
         super(BayesianOptimizer, self).__init__(exp_thermal_data=exp_thermal_data,
                                                 n_exp_total=n_exp_total,
