@@ -1,1 +1,10 @@
 /.ipynb_checkpoints/Demo-checkpoint.ipynb
+
+qmagen/hamiltonian_learning.egg-info/
+
+*.pyc
+
+tutorial/.ipynb_checkpoints
+
+
+hamiltonian_learning.egg-info
