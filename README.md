@@ -107,3 +107,25 @@ exciting features in PyQMagen, including
 
 - Large-scale 2D solver - XTRG
 - Neural network based thermal analysis
+
+---
+### Maintainer 
+
+- Sizhuo YU, Beihang university\
+mail: [yusizhuo@buaa.edu.cn](yusizhuo@buaa.edu.cn)
+
+- Bin-bin Chen, Beihang university\
+mail: [bunbun@buaa.edu.cn](bunbun@buaa.edu.cn)
+
+
+---
+### Cite us
+
+```bib
+@article{QMagen2020,
+  title={Learning Effective Spin Hamiltonian of Quantum Magnet},
+  author={Sizhuo Yu, Yuan Gao, Bin-Bin Chen and Wei Li},
+  journal={arXiv preprint arXiv:2011.12282},
+  year={2020}
+}
+```
